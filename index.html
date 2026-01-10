@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Fornace - Pizza Napoletana</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-content">
+            <h1 class="logo">LA FORNACE <i class="fa-solid fa-fire"></i></h1>
+            
+            <ul class="nav-links">
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#menu">Menú</a></li>
+                <li><a href="#ofertas">Ofertas</a></li>
+                <li><a href="#footer">Contacto</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <div class="cart-btn" onclick="toggleCart()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#hero" onclick="toggleMenu()">Inicio</a>
+            <a href="#menu" onclick="toggleMenu()">Menú</a>
+            <a href="#ofertas" onclick="toggleMenu()">Ofertas</a>
+            <a href="#footer" onclick="toggleMenu()">Contacto</a>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content fade-in">
+            <h2>AUTÉNTICA PIZZA <span class="text-fire">NAPOLETANA</span></h2>
+            <p>Masa madre. Horno de leña. 48 horas de fermentación.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn-primary">Ver Menú</a>
+                <a href="#" class="btn-outline">Reservar Mesa</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="container section-padding">
+        <div class="section-header">
+            <h3>Nuestro <span class="text-fire">Menú</span></h3>
+            <p>Selecciona una categoría para ver nuestras especialidades.</p>
+        </div>
+
+        <div class="menu-tabs">
+            <button class="menu-tab active" data-filter="all">Todo</button>
+            <button class="menu-tab" data-filter="pizza">Pizzas</button>
+            <button class="menu-tab" data-filter="empanada">Empanadas</button>
+            <button class="menu-tab" data-filter="sandwich">Sándwiches</button>
+        </div>
+
+        <div class="menu-grid">
+            <div class="pizza-card" data-category="pizza">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop" alt="Pizza Margarita">
+                    <span class="price-tag">$12.00</span>
+                </div>
+                <div class="card-info">
+                    <h4>Margarita DOP</h4>
+                    <p>Pomodoro San Marzano, Mozzarella, Albahaca.</p>
+                    <button class="btn-order" onclick="addToCart('Margarita', 12.00)">Pedir</button>
+                </div>
+            </div>
+
+            <div class="pizza-card" data-category="pizza">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop" alt="Pizza Pepperoni">
+                    <span class="price-tag">$14.50</span>
+                </div>
+                <div class="card-info">
+                    <h4>Diavola</h4>
+                    <p>Salsa de tomate, Salame picante, Chili oil.</p>
+                    <button class="btn-order" onclick="addToCart('Diavola', 14.50)">Pedir</button>
+                </div>
+            </div>
+
+            <div class="pizza-card" data-category="empanada">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1615568988647-73b3df829a28?q=80&w=800&auto=format&fit=crop" alt="Empanada Carne">
+                    <span class="price-tag">$1.50 c/u</span>
+                </div>
+                <div class="card-info">
+                    <h4>Carne Cuchillo</h4>
+                    <p>Lomo cortado a cuchillo, huevo, verdeo y comino.</p>
+                    <button class="btn-order" onclick="addToCart('Empanada Carne', 1.50)">Pedir</button>
+                </div>
+            </div>
+
+            <div class="pizza-card" data-category="empanada">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1626127391942-0f074a38383e?q=80&w=800&auto=format&fit=crop" alt="Empanada JyQ">
+                    <span class="price-tag">$1.50 c/u</span>
+                </div>
+                <div class="card-info">
+                    <h4>Jamón y Queso</h4>
+                    <p>Mozzarella abundante y jamón natural horneado.</p>
+                    <button class="btn-order" onclick="addToCart('Empanada J&Q', 1.50)">Pedir</button>
+                </div>
+            </div>
+
+            <div class="pizza-card" data-category="sandwich">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1620660600862-23c21a4f005a?q=80&w=800&auto=format&fit=crop" alt="Milanesa">
+                    <span class="price-tag">$10.00</span>
+                </div>
+                <div class="card-info">
+                    <h4>Mila Completa</h4>
+                    <p>Milanesa XXL, lechuga, tomate, huevo frito, mayo.</p>
+                    <button class="btn-order" onclick="addToCart('Sandwich Mila', 10.00)">Pedir</button>
+                </div>
+            </div>
+
+             <div class="pizza-card" data-category="sandwich">
+                <div class="card-img">
+                    <img src="https://plus.unsplash.com/premium_photo-1672242576288-5c4d076d528b?q=80&w=800&auto=format&fit=crop" alt="Lomito">
+                    <span class="price-tag">$12.50</span>
+                </div>
+                <div class="card-info">
+                    <h4>Lomito Rustico</h4>
+                    <p>Lomo a las hierbas, queso tybo, cebolla caramelizada.</p>
+                    <button class="btn-order" onclick="addToCart('Lomito', 12.50)">Pedir</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ofertas" class="section-padding" style="background: #151515;">
+        <div class="container">
+            <div class="offers-grid">
+                
+                <div class="daily-menu-card">
+                    <div class="badge-day">MENÚ DEL DÍA</div>
+                    <h3>Sorrentinos <br>de Calabaza</h3>
+                    <p>Con salsa mixta y estofado. Incluye bebida y pan casero.</p>
+                    <div class="price-big">$9.50</div>
+                    <button class="btn-primary" onclick="addToCart('Menu del Dia', 9.50)">Pedir Ahora</button>
+                </div>
+
+                <div class="offer-items">
+                    <div class="offer-card">
+                        <div class="offer-text">
+                            <h4>Combo Amigos</h4>
+                            <p>2 Pizzas Muzzarella + 1 Coca Cola 1.5L</p>
+                        </div>
+                        <div class="offer-price">$20.00</div>
+                        <button class="btn-mini" onclick="addToCart('Combo Amigos', 20.00)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-text">
+                            <h4>Docena Empanadas</h4>
+                            <p>Sabores a elección (Horno o Fritas)</p>
+                        </div>
+                        <div class="offer-price">$15.00</div>
+                        <button class="btn-mini" onclick="addToCart('Docena Empanadas', 15.00)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container footer-grid">
+            <div>
+                <h4 class="logo">LA FORNACE</h4>
+                <p>El verdadero sabor italiano en el corazón de la ciudad.</p>
+            </div>
+            <div>
+                <h4>Horarios</h4>
+                <p>Mar - Dom: 19:00 - 00:00</p>
+                <p>Lunes: Cerrado</p>
+            </div>
+            <div>
+                <h4>Contacto</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Av. Siempre Viva 123</p>
+                <p><i class="fa-brands fa-whatsapp"></i> +54 11 1234 5678</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 La Fornace Pizzeria.</p>
+            <p class="dev-credit">Desarrollado por <span class="enigma">EnigmaDesign</span> 🚀</p>
+        </div>
+    </footer>
+
+    <div id="toast">Agregado al pedido <i class="fa-solid fa-check"></i></div>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Tu Pedido</h3>
+            <button class="btn-close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="cart-items" id="cartItemsContainer">
+            <p class="empty-msg">Tu carrito está vacío 🍕</p>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="btn-checkout" onclick="checkoutWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
+            </button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
