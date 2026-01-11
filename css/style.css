@@ -355,3 +355,65 @@ a { text-decoration: none; color: inherit; }
     .hamburger { display: block; } /* Muestra icono hamburguesa */
     .cart-sidebar { width: 100%; max-width: 320px; } /* Carrito full en pantallas muy chicas */
 }
+/* --- MODAL RESERVAS --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); z-index: 2000;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+
+.modal-content {
+    background: #1a1a1a; padding: 30px; border-radius: 15px;
+    width: 90%; max-width: 500px; border: 1px solid #333;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    position: relative;
+    max-height: 90vh; overflow-y: auto; /* Para pantallas pequeñas */
+}
+
+.modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px;
+}
+.modal-header h3 { font-family: var(--font-head); color: var(--primary); }
+
+.btn-close-modal {
+    background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;
+}
+
+/* FORMULARIO */
+.form-group { display: flex; gap: 10px; margin-bottom: 15px; }
+.form-group input {
+    width: 100%; padding: 10px; background: #252525; border: 1px solid #333;
+    color: white; border-radius: 5px; outline: none;
+}
+.form-group input:focus { border-color: var(--primary); }
+.full-width { width: 100%; margin-top: 10px; }
+.info-text { font-size: 0.9rem; color: #aaa; margin: 10px 0; text-align: center; }
+
+/* GRILLA DE MESAS */
+.tables-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+    margin: 20px 0; background: #222; padding: 15px; border-radius: 10px;
+}
+
+.table-box {
+    aspect-ratio: 1; border-radius: 5px; display: flex;
+    justify-content: center; align-items: center; font-weight: bold; font-size: 0.8rem;
+    cursor: pointer; transition: 0.2s; border: 2px solid transparent;
+}
+
+/* ESTADOS DE MESA */
+.table-box.available { background: #1b4d2e; color: #4ade80; border: 1px solid #1b4d2e; }
+.table-box.occupied { background: #4d1b1b; color: #ff6b6b; cursor: not-allowed; opacity: 0.6; }
+.table-box.selected { background: var(--primary); color: white; border-color: white; transform: scale(1.1); box-shadow: 0 0 10px var(--primary); }
+
+.selection-msg { text-align: center; font-weight: bold; margin-bottom: 15px; color: var(--primary); min-height: 20px; }
+
+/* MOBILE */
+@media (max-width: 500px) {
+    .form-group { flex-direction: column; }
+    .tables-grid { grid-template-columns: repeat(4, 1fr); }
+}

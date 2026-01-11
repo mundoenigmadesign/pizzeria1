@@ -153,3 +153,117 @@ filterTabs.forEach(tab => {
         });
     });
 });
+/* --- SISTEMA DE RESERVAS --- */
+let selectedTableId = null;
+
+function openReservationModal() {
+    document.getElementById('reservationModal').classList.add('active');
+    // Setear fecha mínima a hoy
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('resDate').min = now.toISOString().slice(0,16);
+}
+
+function closeReservationModal() {
+    document.getElementById('reservationModal').classList.remove('active');
+}
+
+// Lógica de simulación y validación
+function simulateTables() {
+    const dateInput = document.getElementById('resDate').value;
+    const grid = document.getElementById('tablesGrid');
+    const msg = document.getElementById('tableSelectionMsg');
+    
+    if(!dateInput) return;
+
+    const dateObj = new Date(dateInput);
+    const day = dateObj.getDay(); // 0 Domingo, 1 Lunes...
+    const hour = dateObj.getHours();
+
+    // 1. VALIDACIÓN DE HORARIO
+    // Lunes (1) cerrado. Horario: 10 a 23.
+    if (day === 1) {
+        alert("Lo sentimos, los lunes estamos cerrados.");
+        document.getElementById('resDate').value = "";
+        grid.innerHTML = "";
+        return;
+    }
+    if (hour < 10 || hour >= 23) {
+        alert("El horario de reservas es de 10:00 a 23:00 hs.");
+        document.getElementById('resDate').value = "";
+        grid.innerHTML = "";
+        return;
+    }
+
+    // 2. GENERAR 20 MESAS (Simulación)
+    grid.innerHTML = "";
+    selectedTableId = null;
+    msg.innerText = "Selecciona una mesa libre";
+
+    // Usamos la fecha como 'semilla' simple para que si elige la misma fecha, 
+    // la ocupación sea la misma (simulado).
+    const seed = dateObj.getDate() + dateObj.getHours();
+
+    for (let i = 1; i <= 20; i++) {
+        const table = document.createElement('div');
+        table.innerText = i;
+        table.className = 'table-box';
+
+        // Simular ocupación: (Si la suma de fecha+hora+mesa es par, está ocupada - ejemplo simple)
+        // O un random simple:
+        const isOccupied = Math.random() < 0.4; // 40% de probabilidad de estar ocupada
+
+        if (isOccupied) {
+            table.classList.add('occupied');
+            table.title = "Mesa Ocupada";
+        } else {
+            table.classList.add('available');
+            table.title = "Mesa Libre";
+            table.onclick = () => selectTable(i, table);
+        }
+
+        grid.appendChild(table);
+    }
+}
+
+function selectTable(id, element) {
+    // Remover selección previa
+    document.querySelectorAll('.table-box').forEach(t => t.classList.remove('selected'));
+    
+    // Seleccionar nueva
+    element.classList.add('selected');
+    selectedTableId = id;
+    document.getElementById('tableSelectionMsg').innerText = `Mesa #${id} seleccionada`;
+}
+
+function confirmReservation() {
+    const name = document.getElementById('resName').value;
+    const dni = document.getElementById('resDNI').value;
+    const phone = document.getElementById('resPhone').value;
+    const people = document.getElementById('resPeople').value;
+    const date = document.getElementById('resDate').value;
+
+    if (!name || !dni || !phone || !people || !date) {
+        return alert("Por favor completa todos los datos.");
+    }
+    if (!selectedTableId) {
+        return alert("Debes seleccionar una mesa verde del mapa.");
+    }
+
+    // Formatear mensaje para WhatsApp
+    const dateFormatted = new Date(date).toLocaleString();
+    const msg = `Hola! Quiero confirmar una RESERVA:%0A%0A` +
+                `👤 Nombre: ${name}%0A` +
+                `🆔 DNI: ${dni}%0A` +
+                `📞 Contacto: ${phone}%0A` +
+                `👥 Personas: ${people}%0A` +
+                `📅 Fecha: ${dateFormatted}%0A` +
+                `🪑 Mesa N°: ${selectedTableId}`;
+
+    const whatsappNumber = "5491112345678"; // Reemplaza con tu número
+    
+    window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
+    
+    closeReservationModal();
+    showToast(`Reserva enviada para Mesa #${selectedTableId}`);
+}

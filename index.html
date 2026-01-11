@@ -48,7 +48,7 @@
             <p>Masa madre. Horno de leña. 48 horas de fermentación.</p>
             <div class="hero-btns">
                 <a href="#menu" class="btn-primary">Ver Menú</a>
-                <a href="#" class="btn-outline">Reservar Mesa</a>
+                
             </div>
         </div>
     </section>
@@ -223,6 +223,40 @@
             </button>
         </div>
     </div>
+
+    <div id="reservationModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Reservar Mesa <i class="fa-solid fa-calendar-check"></i></h3>
+            <button onclick="closeReservationModal()" class="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="modal-body">
+            <form id="reservationForm" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <input type="text" id="resName" placeholder="Nombre Completo" required>
+                    <input type="number" id="resDNI" placeholder="DNI" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="resPhone" placeholder="Teléfono / WhatsApp" required>
+                    <input type="number" id="resPeople" placeholder="Cantidad de Personas" min="1" max="10" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha y Hora:</label>
+                    <input type="datetime-local" id="resDate" required onchange="simulateTables()">
+                </div>
+                
+                <p class="info-text">Selecciona una mesa disponible en el mapa:</p>
+                
+                <div id="tablesGrid" class="tables-grid">
+                    </div>
+                <p id="tableSelectionMsg" class="selection-msg">Ninguna mesa seleccionada</p>
+
+                <button type="button" class="btn-primary full-width" onclick="confirmReservation()">Confirmar Reserva</button>
+            </form>
+        </div>
+    </div>
+</div>
 
     <script src="js/app.js"></script>
 </body>
