@@ -120,3 +120,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if(target) target.scrollIntoView({ behavior: 'smooth' });
     });
 });
+/* --- FILTRO DEL MENÚ (Categorías) --- */
+const filterTabs = document.querySelectorAll('.menu-tab');
+const menuItems = document.querySelectorAll('.pizza-card');
+
+filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // 1. Remover la clase 'active' de todos los botones
+        filterTabs.forEach(t => t.classList.remove('active'));
+        
+        // 2. Agregar la clase 'active' al botón que se clickeó
+        tab.classList.add('active');
+
+        // 3. Obtener el valor de la categoría a filtrar
+        const filterValue = tab.getAttribute('data-filter');
+
+        // 4. Filtrar los items
+        menuItems.forEach(item => {
+            const itemCategory = item.getAttribute('data-category');
+
+            if (filterValue === 'all' || filterValue === itemCategory) {
+                // Mostrar el item
+                item.style.display = 'block';
+                
+                // Pequeña animación de reaparición (opcional)
+                item.style.opacity = '0';
+                setTimeout(() => item.style.opacity = '1', 50);
+            } else {
+                // Ocultar el item
+                item.style.display = 'none';
+            }
+        });
+    });
+});
